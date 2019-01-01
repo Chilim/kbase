@@ -4,7 +4,7 @@
   "description": "build knowledgebase app with Node.js",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon src/app.js --exec babel-node --presets babel-preset-env"
+    "start": "nodemon src/app.js --exec babel-node --presets @babel/preset-env"
   },
   "keywords": [
     "node.js",
@@ -13,10 +13,10 @@
   "author": "Davud Kakhriman",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "*",
-    "@babel/node": "*",
-    "@babel/preset-env": "^7.2.3",
-    "babel-cli": "*",
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "babel-eslint": "*",
     "babel-loader": "*",
     "eslint": "*",
