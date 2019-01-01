@@ -1,10 +1,13 @@
 import express from 'express';
+import path from 'path';
+
 
 const app = express();
-const port = 3000;
 
+//Set view engine
+app.set('view engine', 'pug');
 //Home route
-app.get('/', (req, res) => res.send('Hello world'));
-
+app.get('/', (req, res) => res.render('index', { title: 'hello' }));
+  
 //Start server
-app.listen(port, () => console.log(`Example on port ${port}`));
+app.listen(3000, () => console.log('Example on port 3000'));
