@@ -8,9 +8,7 @@ parserOptions:
   ecmaVersion: 2017
   sourceType: module
 rules:
-  indent:
-    - error
-    - tab
+  indent: ["error", 4, {SwitchCase: 1}]
   linebreak-style:
     - error
     - unix

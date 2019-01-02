@@ -27,7 +27,9 @@
   },
   "dependencies": {
     "babel-core": "^7.0.0-bridge.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongoose": "^5.4.1",
     "pug": "^2.0.3"
   }
 }
