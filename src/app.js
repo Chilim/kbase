@@ -1,3 +1,4 @@
+// import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -21,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+// set public folder
+app.use(express.static('public'));
 
 //Home Route
 app.get('/', (req, res) => {
