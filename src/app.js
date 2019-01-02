@@ -41,6 +41,15 @@ app.get('/', (req, res) => {
     });
 });
 
+// get article route
+app.get('/article/:id', (req, res) => {
+    Article.findById(req.params.id, (err, article) => {
+        res.render('article', {
+            article: article
+        });
+    });
+});
+
 // Add Article Route
 app.get('/articles/add', (req, res) => res.render('add_article', { title: 'Add Article' }));
 
