@@ -28,7 +28,11 @@
   "dependencies": {
     "babel-core": "^7.0.0-bridge.0",
     "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "express": "^4.16.4",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
     "mongoose": "^5.4.1",
     "pug": "^2.0.3"
   }
