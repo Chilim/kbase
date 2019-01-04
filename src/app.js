@@ -3,13 +3,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import Article from '../models/article';
-import expressValidator from 'express-validator';
 import session from 'express-session';
 import flash from 'connect-flash';
 import expressMessages from 'express-messages';
+// import { check, validationResult } from 'express-validator/check';
+// import articles from '../routes/articles';
 
 
-// Connect Database
+// Connect database
 mongoose.connect('mongodb://localhost/kbadb');
 const db = mongoose.connection;
 db.once('open', () => console.log('MongoDB connected'));
@@ -21,21 +22,20 @@ const app = express();
 //Set view engine
 app.set('view engine', 'pug');
 
-// parse application/x-www-form-urlencoded
+// Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
+// Parse application/json
 app.use(bodyParser.json());
 
-// set public folder
+// Set public folder
 app.use(express.static('public'));
 
 // Express session middleware
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    resave: true,
+    saveUninitialized: true
 }));
 
 // Express messages middleware
@@ -46,15 +46,9 @@ app.use((req, res, next) => {
 });
 
 // Express validator middleware
-// app.use(express.json());
-// app.post('/user', (req, res) => {
-//   User.create({
-//     username: req.body.username,
-//     password: req.body.password
-//   }).then(user => res.json(user));
-// });
+app.use(express.json());
 
-//Home Route
+//Home route
 app.get('/', (req, res) => {
     Article.find({}, (err, articles) => {
         if (err) {
@@ -68,76 +62,9 @@ app.get('/', (req, res) => {
     });
 });
 
-// get article route
-app.get('/article/:id', (req, res) => {
-    Article.findById(req.params.id, (err, article) => {
-        res.render('article', {
-            article: article
-        });
-    });
-});
-
-// get edit form route
-app.get('/article/edit/:id', (req, res) => {
-    Article.findById(req.params.id, (err, article) => {
-        res.render('edit_article', {
-            title: 'Edit Title',
-            article: article
-        });
-    });
-});
-
-// Add Article Route
-app.get('/articles/add', (req, res) => res.render('add_article', { title: 'Add Article' }));
-
-// Submit POST Route
-app.post('/articles/add', (req, res) => {
-    const article = new Article();
-    const { title, author, content } = req.body;
-    article.title = title;
-    article.author = author;
-    article.content = content;
-
-    article.save((err) => {
-        if(err) {
-            console.log(err);
-            return;
-        } else {
-            res.redirect('/');
-        }
-    });
-
-});
-
-// Submit Edit Route
-app.post('/articles/edit/:id', (req, res) => {
-    const article = {};
-    const { title, author, content } = req.body;
-    article.title = title;
-    article.author = author;
-    article.content = content;
-    const query = { _id: req.params.id };
-    Article.update(query, article, (err) => {
-        if(err) {
-            console.log(err);
-            return;
-        } else {
-            res.redirect('/');
-        }
-    });
-
-});
-
-app.delete('/article/:id', (req, res) => {
-    const query = { _id: req.params.id };
-    Article.remove(query, (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send('success');
-        }
-    });
-});
+// Route files
+const articles = require('../routes/articles');
+app.use('/articles', articles);
 
 //Start server
 app.listen(3000, () => console.log('Example on port 3000'));
