@@ -1,4 +1,3 @@
-// import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -7,7 +6,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import expressMessages from 'express-messages';
 // import { check, validationResult } from 'express-validator/check';
-// import articles from '../routes/articles';
+import articles from '../routes/articles';
 
 
 // Connect database
@@ -63,7 +62,6 @@ app.get('/', (req, res) => {
 });
 
 // Route files
-const articles = require('../routes/articles');
 app.use('/articles', articles);
 
 //Start server
